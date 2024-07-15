@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/AwahMarwah/Technical_test/internal/handler"
+	"github.com/AwahMarwah/Technical_test/controller"
 	"github.com/AwahMarwah/Technical_test/service"
 	"github.com/gin-gonic/gin"
 )
@@ -10,7 +10,7 @@ func main() {
 	r := gin.Default()
 
 	fruitService := services.NewFruitService()
-	fruitHandler := handlers.NewFruitHandler(fruitService)
+	fruitHandler := controller.NewFruitHandler(fruitService)
 
 	r.GET("/fruits", fruitHandler.GetAllFruitNames)
 	r.GET("/fruits/separated", fruitHandler.SeparateFruitsByType)

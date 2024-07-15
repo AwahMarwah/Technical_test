@@ -1,6 +1,8 @@
 package services
 
 import (
+	"strings"
+
 	"github.com/AwahMarwah/Technical_test/model"
 )
 
@@ -22,10 +24,14 @@ func NewFruitService() *FruitService {
 	}
 }
 
+func (s *FruitService) NormalizeName(name string) string {
+	return strings.ToLower(name)
+}
+
 func (s *FruitService) GetAllFruitNames() []string {
 	fruitNames := make([]string, len(s.fruits))
 	for i, fruit := range s.fruits {
-		fruitNames[i] = fruit.Name
+		fruitNames[i] = s.NormalizeName(fruit.Name)
 	}
 	return fruitNames
 }
@@ -33,6 +39,7 @@ func (s *FruitService) GetAllFruitNames() []string {
 func (s *FruitService) SeparateFruitsByType() map[model.FruitType][]model.Fruit {
 	separatedFruits := make(map[model.FruitType][]model.Fruit)
 	for _, fruit := range s.fruits {
+		fruit.Name = s.NormalizeName(fruit.Name)
 		separatedFruits[fruit.Type] = append(separatedFruits[fruit.Type], fruit)
 	}
 	return separatedFruits
